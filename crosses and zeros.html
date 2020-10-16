@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table {border-spacing: 10px}
+        td {color: transparent; border: 2px solid black; width: 100px; height: 100px; background-image: url(1.png); background-size: contain;}
+        td:hover {outline: 3px solid blue}
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        let turn=true
+        var cross=[]
+        let zeros=[]
+        let win_sets = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
+
+
+        function check(age) {
+          return cross.includes(age);
+        }
+
+        function check2(age) {
+          return zeros.includes(age);
+        }
+
+        $(document).ready(function(){
+            $("td").click(function(){
+                if ($(this).attr("class")=="old") {
+                    if (turn) {
+                        turn=false;
+                        $(this).css({"background-image":"url(2.png)","background-size": "contain"})
+                        cross.push(Number($(this).text()));
+
+                        for (let set of win_sets) {
+                            if (set.every(check)) {
+                                alert("cross wins")
+                                $("td").attr("class","stop")
+                            };
+                        };
+                        $(this).attr("class","new")
+                    } else {
+                        turn=true
+                        $(this).css({"background-image":"url(3.png)","background-size": "contain"})
+                        zeros.push(Number($(this).text()));
+
+                        for (let set of win_sets) {
+                            if (set.every(check2)) {
+                                alert("zeros wins")
+                                $("td").attr("class","stop")
+                            };
+                        };
+                        $(this).attr("class","new")
+                    };
+                };
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <table>
+        <tr>
+            <td class="old">0</td>
+            <td class="old">1</td>
+            <td class="old">2</td>
+        </tr>
+        <tr>
+            <td class="old">3</td>
+            <td class="old">4</td>
+            <td class="old">5</td>
+        </tr>
+        <tr>
+            <td class="old">6</td>
+            <td class="old">7</td>
+            <td class="old">8</td>
+        </tr>
+    </table>
+</body>
+</html>
