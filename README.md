@@ -1,1 +1,1 @@
-# JS-crosses-and-zeros
+# JS/JQuery-crosses-and-zeros
